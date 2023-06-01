@@ -7,7 +7,7 @@ import {
   FiCalendar,
 } from "react-icons/fi";
 import { Fragment, useState } from "react";
-
+import { TODAY } from "./components/Calendar";
 import { usePopper } from "react-popper";
 
 const DATA1 = [
@@ -181,9 +181,17 @@ export default function App() {
               {...attributes.popper}
               className={"absolute w-max mt-2"}
             >
-              <Calendar
-                handleChange={({ startDate, endDate }) => {
-                  console.log({ startDate, endDate });
+              <DateRangePickerCalendar
+                end={
+                  new Date(
+                    TODAY.getFullYear(),
+                    TODAY.getMonth(),
+                    TODAY.getDate() + 9
+                  )
+                }
+                start={TODAY}
+                handleChange={(value) => {
+                  // console.log(value);
                 }}
               />
             </Popover.Panel>
@@ -360,7 +368,9 @@ import Footer from "./components/Footer";
 import Table from "./components/Table";
 import Referrals from "./components/Referrals";
 import { Popover, Transition } from "@headlessui/react";
-import Calendar from "./components/Calendar";
+import DateRangePickerCalendar from "./components/DateRangePickerCalendar";
+import DatePickerCalendar from "./components/DatePickerCalendar";
+import MultipleDatePickerCalendar from "./components/MultipleDatePickerCalendar";
 
 function PrCard() {
   return (
