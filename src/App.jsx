@@ -6,7 +6,9 @@ import {
   FiArrowUp,
   FiCalendar,
 } from "react-icons/fi";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+
+import { usePopper } from "react-popper";
 
 const DATA1 = [
   {
@@ -144,6 +146,9 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 export default function App() {
+  const [referenceElement, setReferenceElement] = useState();
+  const [popperElement, setPopperElement] = useState();
+  const { styles, attributes } = usePopper(referenceElement, popperElement);
   return (
     <div className="max-w-[1224px] mx-auto max-xl:mx-4">
       <Header />
@@ -156,10 +161,34 @@ export default function App() {
             Track, manage and forecast your customers and orders.
           </h3>
         </div>
-        <button className="button mr-auto md:ml-auto md:mr-0 mt-6 md:mt-0">
-          <FiCalendar size={20} />
-          Jan 6, 2022 – Jan 13, 2022
-        </button>
+        <Popover className="relative mr-auto md:ml-auto md:mr-0 mt-6 md:mt-0">
+          <Popover.Button ref={setReferenceElement} className="button ">
+            <FiCalendar size={20} />
+            Jan 6, 2022 &ndash; Jan 13, 2022
+          </Popover.Button>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-150"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+          >
+            <Popover.Panel
+              ref={setPopperElement}
+              style={styles.popper}
+              {...attributes.popper}
+              className={"absolute w-max mt-2"}
+            >
+              <Calendar
+                handleChange={({ startDate, endDate }) => {
+                  console.log({ startDate, endDate });
+                }}
+              />
+            </Popover.Panel>
+          </Transition>
+        </Popover>
       </div>
       <div className=" grid mt-7">
         <div className="max-sm:flex-col flex gap-6 flex-wrap">
@@ -330,6 +359,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Table from "./components/Table";
 import Referrals from "./components/Referrals";
+import { Popover, Transition } from "@headlessui/react";
+import Calendar from "./components/Calendar";
 
 function PrCard() {
   return (

@@ -103,7 +103,7 @@ function UserMenu({ name, email, image }) {
       >
         <Menu.Items
           className={
-            "absolute right-0 top-12 origin-top-right  rounded-lg bg-white focus:outline-none py-1 flex flex-col gap-1 min-w-[240px]"
+            "absolute z-[1] right-0 top-12 origin-top-right  rounded-lg bg-white focus:outline-none py-1 flex flex-col gap-1 min-w-[240px]"
           }
           style={{
             boxShadow:
