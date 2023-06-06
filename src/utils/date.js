@@ -5,6 +5,8 @@ export function getAllDates(monthDate) {
 
   let i = 0;
 
+  date.setDate(1);
+
   while (date.getMonth() === monthDate.getMonth()) {
     dates.push(new Date(date));
     date.setDate(date.getDate() + 1);
